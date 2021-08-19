@@ -253,29 +253,45 @@ BkgMdl = @(b,x) b(1) + b(2) * x;
 FitBkg = feval(BkgMdl,coefficients(1:2),BE) + Background;
 
 FitFigure = figure;
-plot(BE, FitRG);
+plot(BE, FitRG,':','Color',[0.15,0.15,0.15],'Linewidth',2);
 hold on
-plot(BE, Intensity);
-plot(BE, FitBkg)
+plot(BE, Intensity,'Color',[0.64,0.08,0.18],'Linewidth',1.5);
+plot(BE, FitBkg, 'Color',[0.50,0.50,0.50],'Linewidth',0.8)
+
+ % General Setup 
+ax = gca;
+fig = gcf;
+ax.Color = 'white';
+ax.LineWidth = 1.5;
+ax.Box = 'on';
+ax.FontWeight = 'bold';
+
 
 GaussMdl = @(c,x) c(1) * exp(-(x(:, 1) - c(2)).^2/c(3));
 switch n
     case 1
         GaussFit = feval(GaussMdl,coefficients(3:5),BE) + FitBkg;
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.47,0.67,0.19],'EdgeColor','none','FaceAlpha',0.5);
         
         legend('TotalFit','Data','Background',['Peak 1: ' num2str(coefficients(4),'%.1f') ' eV; ']);
+        legend('boxoff','bold','fontsize',9);
+        xlabel('Binding Energy (eV)');
+        ylabel('Intensity');
+        
         
     case 2
         GaussFit = feval(GaussMdl,coefficients(3:5),BE);    % Calculate fit curve
         PeakArea(1) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.47,0.67,0.19],'EdgeColor','none','FaceAlpha',0.5);
         
         GaussFit = feval(GaussMdl,coefficients(6:8),BE);    % Calculate fit curve
         PeakArea(2) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
         
         
         % Determine the relative area of each Gauss peak.
@@ -286,22 +302,31 @@ switch n
         legend('TotalFit','Data','Background',['Peak 1: ' num2str(coefficients(4),'%.1f') ' eV; ' ...
             num2str(RelArea(1),'%.0f') '%'],['Peak 2: ' num2str(coefficients(7),'%.1f') ' eV; ' ...
             num2str(RelArea(2),'%.0f') '%']);
+        legend('boxoff','bold','fontsize',9);
+        xlabel('Binding Energy (eV)');
+        ylabel('Intensity');
         
     case 3
+       
         GaussFit = feval(GaussMdl,coefficients(3:5),BE);    % Calculate fit curve
         PeakArea(1) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.47,0.67,0.19],'EdgeColor','none','FaceAlpha',0.5);
+        
         
         GaussFit = feval(GaussMdl,coefficients(6:8),BE);    % Calculate fit curve
         PeakArea(2) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
+        
         
         GaussFit = feval(GaussMdl,coefficients(9:11),BE);    % Calculate fit curve
         PeakArea(3) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.30,0.75,0.93],'EdgeColor','none','FaceAlpha',0.5);
         
         
         % Determine the relative area of each Gauss peak.
@@ -310,31 +335,40 @@ switch n
         RelArea(3) = PeakArea(3)/sum(PeakArea)*100;
         
         
+        
         legend('TotalFit','Data','Background',['Peak 1: ' num2str(coefficients(4),'%.1f') ' eV; ' ...
             num2str(RelArea(1),'%.0f') '%'],['Peak 2: ' num2str(coefficients(7),'%.1f') ' eV; ' ...
             num2str(RelArea(2),'%.0f') '%'],['Peak 3: ' num2str(coefficients(10),'%.1f') ' eV; ' ...
             num2str(RelArea(3),'%.0f') '%']);
+        legend('boxoff','bold','fontsize',9);
+        xlabel('Binding Energy (eV)');
+        ylabel('Intensity');
+        
         
     case 4
         GaussFit = feval(GaussMdl,coefficients(3:5),BE);    % Calculate fit curve
         PeakArea(1) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.47,0.67,0.19],'EdgeColor','none','FaceAlpha',0.5);
         
         GaussFit = feval(GaussMdl,coefficients(6:8),BE);    % Calculate fit curve
         PeakArea(2) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+         fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
         
         GaussFit = feval(GaussMdl,coefficients(9:11),BE);   % Calculate fit curve
         PeakArea(3) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.30,0.75,0.93],'EdgeColor','none','FaceAlpha',0.5);
         
         GaussFit = feval(GaussMdl,coefficients(12:14),BE);  % Calculate fit curve
         PeakArea(4) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
-        plot(BE,GaussFit)
+        %plot(BE,GaussFit)
+         fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.64,0.08,0.18],'EdgeColor','none','FaceAlpha',0.5);
         
         
         % Determine the relative area of each Gauss peak.
@@ -348,8 +382,11 @@ switch n
             num2str(RelArea(2),'%.0f') '%'],['Peak 3: ' num2str(coefficients(10),'%.1f') ' eV; ' ...
             num2str(RelArea(3),'%.0f') '%'],['Peak 4: ' num2str(coefficients(13),'%.1f') ' eV; ' ...
             num2str(RelArea(4),'%.0f') '%']);
+        legend('boxoff','bold','fontsize',9);
+        xlabel('Binding Energy (eV)');
+        ylabel('Intensity');
         
-        
+
 end
 hold off
 
