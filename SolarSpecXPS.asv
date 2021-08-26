@@ -27,6 +27,12 @@ clear FullTable opts
 BEshift = input('What shift in eV should be applied to the binding energies? (answer 0 if you do not know): ');
 BE = BE+BEshift;
 
+%% Determine bounds for Shirley background
+
+HelpPlot = figure;
+plot(FlipBE, FlipBSInt);                            % Generate helpful plot
+
+
 %% Determine Shirley background
 disp('Starting Shirley background fit...')
 
