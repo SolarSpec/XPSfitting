@@ -56,7 +56,7 @@ for LabelInd = 1:1:6
     text(locs(PeakLabelIndex)+0.5,pks(PeakLabelIndex)+10,num2str(locs((PeakLabelIndex)))) % Add label
 end
 
-n = input('How many peaks do you want to fit? (max of 4) :');
+n = input('How many peaks do you want to fit? (max of 5) :');
 LowRange = input('What is the lower bound (in eV) to find peaks? :');
 HighRange = input('What is the upper bound (in eV) to find peaks? :');
 
@@ -91,7 +91,7 @@ switch n
         
         InitialGuess(5) = widths(PeakIndex) / 2.35;
         LowerBound(5) = 0;
-        UpperBound(1) = inf;
+        UpperBound(5) = inf;
         
     case 2
         % For 2 gaussian peaks
@@ -236,6 +236,82 @@ switch n
         InitialGuess(14) = widths(PeakIndex) / 2.35;
         LowerBound(14) = 0;
         UpperBound(14) = inf;
+        
+    case 5
+        % For 5 gaussian peaks
+        modelfun = @(b,x) b(1) + b(2) * x + b(3) * exp(-(x(:, 1) - b(4)).^2/b(5))...
+            + b(6) * exp(-(x(:, 1) - b(7)).^2/b(8))...
+            + b(9) * exp(-(x(:, 1) - b(10)).^2/b(11))...
+            + b(12) * exp(-(x(:, 1) - b(13)).^2/b(14))...
+            + b(15) * exp(-(x(:, 1) - b(16)).^2/b(17));
+        
+        % Determine initial guess for Gaussian peak
+        PeakInt = maxk(proms,5);
+        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
+        
+        InitialGuess(3) = proms(PeakIndex);
+        LowerBound(3) = 0;
+        UpperBound(3) = inf;
+        
+        InitialGuess(4) = locs(PeakIndex);
+        LowerBound(4) = LowRange;
+        UpperBound(4) = HighRange;
+        
+        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        LowerBound(5) = 0;
+        UpperBound(5) = inf;
+        
+        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
+        InitialGuess(6) = proms(PeakIndex);
+        LowerBound(6) = 0;
+        UpperBound(6) = inf;
+        
+        InitialGuess(7) = locs(PeakIndex);
+        LowerBound(7) = LowRange;
+        UpperBound(7) = HighRange;
+        
+        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        LowerBound(8) = 0;
+        UpperBound(8) = inf;
+        
+        PeakIndex = find(proms == PeakInt(3));      % For third Gaussian peak
+        InitialGuess(9) = proms(PeakIndex);
+        LowerBound(9) = 0;
+        UpperBound(9) = inf;
+        
+        InitialGuess(10) = locs(PeakIndex);
+        LowerBound(10) = LowRange;
+        UpperBound(10) = HighRange;
+        
+        InitialGuess(11) = widths(PeakIndex) / 2.35;
+        LowerBound(11) = 0;
+        UpperBound(11) = inf;
+        
+        PeakIndex = find(proms == PeakInt(4));      % For fourth Gaussian peak
+        InitialGuess(12) = proms(PeakIndex);
+        LowerBound(12) = 0;
+        UpperBound(12) = inf;
+        
+        InitialGuess(13) = locs(PeakIndex);
+        LowerBound(13) = LowRange;
+        UpperBound(13) = HighRange;
+        
+        InitialGuess(14) = widths(PeakIndex) / 2.35;
+        LowerBound(14) = 0;
+        UpperBound(14) = inf;
+        
+        PeakIndex = find(proms == PeakInt(5));      % For fifth Gaussian peak
+        InitialGuess(15) = proms(PeakIndex);
+        LowerBound(15) = 0;
+        UpperBound(15) = inf;
+        
+        InitialGuess(16) = locs(PeakIndex);
+        LowerBound(16) = LowRange;
+        UpperBound(16) = HighRange;
+        
+        InitialGuess(17) = widths(PeakIndex) / 2.35;
+        LowerBound(17) = 0;
+        UpperBound(17) = inf;
 end
 
 %% Perform the fitting
@@ -258,7 +334,7 @@ hold on
 plot(BE, Intensity,'Color',[0.64,0.08,0.18],'Linewidth',1.5);
 plot(BE, FitBkg, 'Color',[0.50,0.50,0.50],'Linewidth',0.8)
 
- % General Setup 
+% General Setup
 ax = gca;
 fig = gcf;
 ax.Color = 'white';
@@ -307,7 +383,7 @@ switch n
         ylabel('Intensity');
         
     case 3
-       
+        
         GaussFit = feval(GaussMdl,coefficients(3:5),BE);    % Calculate fit curve
         PeakArea(1) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
@@ -356,7 +432,7 @@ switch n
         PeakArea(2) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
         %plot(BE,GaussFit)
-         fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
         
         GaussFit = feval(GaussMdl,coefficients(9:11),BE);   % Calculate fit curve
         PeakArea(3) = trapz(GaussFit);                      % Determine area of peak
@@ -368,7 +444,7 @@ switch n
         PeakArea(4) = trapz(GaussFit);                      % Determine area of peak
         GaussFit = GaussFit + FitBkg;                       % Add background for plotting
         %plot(BE,GaussFit)
-         fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.64,0.08,0.18],'EdgeColor','none','FaceAlpha',0.5);
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.64,0.08,0.18],'EdgeColor','none','FaceAlpha',0.5);
         
         
         % Determine the relative area of each Gauss peak.
@@ -386,7 +462,54 @@ switch n
         xlabel('Binding Energy (eV)');
         ylabel('Intensity');
         
-
+    case 5
+        GaussFit = feval(GaussMdl,coefficients(3:5),BE);    % Calculate fit curve
+        PeakArea(1) = trapz(GaussFit);                      % Determine area of peak
+        GaussFit = GaussFit + FitBkg;                       % Add background for plotting
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.47,0.67,0.19],'EdgeColor','none','FaceAlpha',0.5);
+        
+        GaussFit = feval(GaussMdl,coefficients(6:8),BE);    % Calculate fit curve
+        PeakArea(2) = trapz(GaussFit);                      % Determine area of peak
+        GaussFit = GaussFit + FitBkg;                       % Add background for plotting
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.49,0.18,0.56],'EdgeColor','none','FaceAlpha',0.5);
+        
+        GaussFit = feval(GaussMdl,coefficients(9:11),BE);   % Calculate fit curve
+        PeakArea(3) = trapz(GaussFit);                      % Determine area of peak
+        GaussFit = GaussFit + FitBkg;                       % Add background for plotting
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.30,0.75,0.93],'EdgeColor','none','FaceAlpha',0.5);
+        
+        GaussFit = feval(GaussMdl,coefficients(12:14),BE);  % Calculate fit curve
+        PeakArea(4) = trapz(GaussFit);                      % Determine area of peak
+        GaussFit = GaussFit + FitBkg;                       % Add background for plotting
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.64,0.08,0.18],'EdgeColor','none','FaceAlpha',0.5);
+        
+        GaussFit = feval(GaussMdl,coefficients(15:17),BE);  % Calculate fit curve
+        PeakArea(5) = trapz(GaussFit);                      % Determine area of peak
+        GaussFit = GaussFit + FitBkg;                       % Add background for plotting
+        %plot(BE,GaussFit)
+        fill([BE' fliplr(BE')],[GaussFit' fliplr(FitBkg')],[0.40,0.20,0.70],'EdgeColor','none','FaceAlpha',0.5);
+        
+        % Determine the relative area of each Gauss peak.
+        RelArea(1) = PeakArea(1)/sum(PeakArea)*100;
+        RelArea(2) = PeakArea(2)/sum(PeakArea)*100;
+        RelArea(3) = PeakArea(3)/sum(PeakArea)*100;
+        RelArea(4) = PeakArea(4)/sum(PeakArea)*100;
+        RelArea(5) = PeakArea(5)/sum(PeakArea)*100;
+        
+        legend('TotalFit','Data','Background',['Peak 1: ' num2str(coefficients(4),'%.1f') ' eV; ' ...
+            num2str(RelArea(1),'%.0f') '%'],['Peak 2: ' num2str(coefficients(7),'%.1f') ' eV; ' ...
+            num2str(RelArea(2),'%.0f') '%'],['Peak 3: ' num2str(coefficients(10),'%.1f') ' eV; ' ...
+            num2str(RelArea(3),'%.0f') '%'],['Peak 4: ' num2str(coefficients(13),'%.1f') ' eV; ' ...
+            num2str(RelArea(4),'%.0f') '%'],['Peak 5: ' num2str(coefficients(16),'%.1f') ' eV; ' ...
+            num2str(RelArea(5),'%.0f') '%']);
+        legend('boxoff','bold','fontsize',9);
+        xlabel('Binding Energy (eV)');
+        ylabel('Intensity');
+        
 end
 hold off
 
