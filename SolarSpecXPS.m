@@ -73,28 +73,20 @@ end
 
 %% Do the peak fitting
 
-% Flip data to use findpeaks which need increasing X values
-FlipBE = flip(BE);
-FlipBSInt = flip(BSintensity);
 
-% Find peaks to help with initial guesses and generate helpful plot
-[pks,locs,widths,proms] = findpeaks(FlipBSInt,FlipBE);
+FitPlot = figure;
+plot(BE, Intensity,BE,Background);                   % Generate helpful plot to set fitting bounds and initial guesses
+FitPlot.CurrentAxes.XDir = 'reverse';
+title('Click to select the bounds in which you want to fit peaks.')
 
-HelpPlot = figure;
-plot(FlipBE, FlipBSInt);                            % Generate helpful plot
-HelpPlot.CurrentAxes.XDir = 'reverse';              % Set to typical reverse X axis
+[XfitRange,YfitRange] = ginput(2);
+LowRange = min(XfitRange);
+HighRange = max(XfitRange);
 
-PeakLabelInt = maxk(proms,6);                       % Find 6 most prominent peaks
-for LabelInd = 1:1:6
-    PeakLabelIndex = find(proms == PeakLabelInt(LabelInd));
-    text(locs(PeakLabelIndex)+0.5,pks(PeakLabelIndex)+10,num2str(locs((PeakLabelIndex)))) % Add label
-end
-
-n = input('How many peaks do you want to fit? (max of 5) :');
-LowRange = input('What is the lower bound (in eV) to find peaks? :');
-HighRange = input('What is the upper bound (in eV) to find peaks? :');
-
-close(HelpPlot)
+title({'Now click on where you think there should be peaks.', 'Press ENTER to finish.'})
+[XPeakGuess,YPeakGuess] = ginput(5);
+n = length(XPeakGuess);
+close(FitPlot)
 
 disp('Starting peak fitting...')
 
@@ -113,17 +105,15 @@ switch n
         modelfun = @(b,x) b(1) + b(2) * x + b(3) * exp(-(x(:, 1) - b(4)).^2/b(5));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,1);
-        PeakIndex = find(proms == PeakInt);
-        InitialGuess(3) = proms(PeakIndex);
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
@@ -133,31 +123,29 @@ switch n
             + b(6) * exp(-(x(:, 1) - b(7)).^2/b(8));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,2);
-        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
-        
-        InitialGuess(3) = proms(PeakIndex);
+        % For first Gaussian peak        
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
-        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
-        InitialGuess(6) = proms(PeakIndex);
+        % For second Gaussian peak
+        InitialGuess(6) = YPeakGuess(2);
         LowerBound(6) = 0;
         UpperBound(6) = inf;
         
-        InitialGuess(7) = locs(PeakIndex);
+        InitialGuess(7) = XPeakGuess(2);
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0;
         UpperBound(8) = inf;
         
@@ -168,44 +156,42 @@ switch n
             + b(9) * exp(-(x(:, 1) - b(10)).^2/b(11));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,3);
-        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
-        
-        InitialGuess(3) = proms(PeakIndex);
+        % For first Gaussian peak
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
-        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
-        InitialGuess(6) = proms(PeakIndex);
+        % For second Gaussian peak
+        InitialGuess(6) = YPeakGuess(2);
         LowerBound(6) = 0;
         UpperBound(6) = inf;
         
-        InitialGuess(7) = locs(PeakIndex);
+        InitialGuess(7) = XPeakGuess(2);
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0;
         UpperBound(8) = inf;
         
-        PeakIndex = find(proms == PeakInt(3));      % For third Gaussian peak
-        InitialGuess(9) = proms(PeakIndex);
+        % For third Gaussian peak
+        InitialGuess(9) = YPeakGuess(3);
         LowerBound(9) = 0;
         UpperBound(9) = inf;
         
-        InitialGuess(10) = locs(PeakIndex);
+        InitialGuess(10) = XPeakGuess(3);
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = widths(PeakIndex) / 2.35;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0;
         UpperBound(11) = inf;
         
@@ -217,57 +203,55 @@ switch n
             + b(12) * exp(-(x(:, 1) - b(13)).^2/b(14));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,4);
-        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
-        
-        InitialGuess(3) = proms(PeakIndex);
+        % For first Gaussian peak
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
-        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
-        InitialGuess(6) = proms(PeakIndex);
+        % For second Gaussian peak
+        InitialGuess(6) = YPeakGuess(2);
         LowerBound(6) = 0;
         UpperBound(6) = inf;
         
-        InitialGuess(7) = locs(PeakIndex);
+        InitialGuess(7) = XPeakGuess(2);
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0;
         UpperBound(8) = inf;
         
-        PeakIndex = find(proms == PeakInt(3));      % For third Gaussian peak
-        InitialGuess(9) = proms(PeakIndex);
+        % For third Gaussian peak
+        InitialGuess(9) = YPeakGuess(3);
         LowerBound(9) = 0;
         UpperBound(9) = inf;
         
-        InitialGuess(10) = locs(PeakIndex);
+        InitialGuess(10) = XPeakGuess(3);
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = widths(PeakIndex) / 2.35;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0;
         UpperBound(11) = inf;
         
-        PeakIndex = find(proms == PeakInt(4));      % For fourth Gaussian peak
-        InitialGuess(12) = proms(PeakIndex);
+        % For fourth Gaussian peak
+        InitialGuess(12) = YPeakGuess(4);
         LowerBound(12) = 0;
         UpperBound(12) = inf;
         
-        InitialGuess(13) = locs(PeakIndex);
+        InitialGuess(13) = XPeakGuess(4);
         LowerBound(13) = LowRange;
         UpperBound(13) = HighRange;
         
-        InitialGuess(14) = widths(PeakIndex) / 2.35;
+        InitialGuess(14) = 2;
         LowerBound(14) = 0;
         UpperBound(14) = inf;
         
@@ -280,70 +264,69 @@ switch n
             + b(15) * exp(-(x(:, 1) - b(16)).^2/b(17));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,5);
-        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
-        
-        InitialGuess(3) = proms(PeakIndex);
+
+        % For first Gaussian peak
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
-        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
-        InitialGuess(6) = proms(PeakIndex);
+        % For second Gaussian peak
+        InitialGuess(6) = YPeakGuess(2);
         LowerBound(6) = 0;
         UpperBound(6) = inf;
         
-        InitialGuess(7) = locs(PeakIndex);
+        InitialGuess(7) = XPeakGuess(2);
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0;
         UpperBound(8) = inf;
         
-        PeakIndex = find(proms == PeakInt(3));      % For third Gaussian peak
-        InitialGuess(9) = proms(PeakIndex);
+        % For third Gaussian peak
+        InitialGuess(9) = YPeakGuess(3);
         LowerBound(9) = 0;
         UpperBound(9) = inf;
         
-        InitialGuess(10) = locs(PeakIndex);
+        InitialGuess(10) = XPeakGuess(3);
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = widths(PeakIndex) / 2.35;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0;
         UpperBound(11) = inf;
         
-        PeakIndex = find(proms == PeakInt(4));      % For fourth Gaussian peak
-        InitialGuess(12) = proms(PeakIndex);
+        % For fourth Gaussian peak
+        InitialGuess(12) = YPeakGuess(4);
         LowerBound(12) = 0;
         UpperBound(12) = inf;
         
-        InitialGuess(13) = locs(PeakIndex);
+        InitialGuess(13) = XPeakGuess(4);
         LowerBound(13) = LowRange;
         UpperBound(13) = HighRange;
         
-        InitialGuess(14) = widths(PeakIndex) / 2.35;
+        InitialGuess(14) = 2;
         LowerBound(14) = 0;
         UpperBound(14) = inf;
         
-        PeakIndex = find(proms == PeakInt(5));      % For fifth Gaussian peak
-        InitialGuess(15) = proms(PeakIndex);
+        % For fifth Gaussian peak
+        InitialGuess(15) = YPeakGuess(5);
         LowerBound(15) = 0;
         UpperBound(15) = inf;
         
-        InitialGuess(16) = locs(PeakIndex);
+        InitialGuess(16) = XPeakGuess(5);
         LowerBound(16) = LowRange;
         UpperBound(16) = HighRange;
         
-        InitialGuess(17) = widths(PeakIndex) / 2.35;
+        InitialGuess(17) = 2;
         LowerBound(17) = 0;
         UpperBound(17) = inf;
 end

@@ -32,56 +32,61 @@ BE = BE+BEshift;
 BoundPlot = figure;
 plot(BE, Intensity);   % Generate plot to set bounds on Shirley background fitting.
 BoundPlot.CurrentAxes.XDir = 'reverse';                                         % Set to typical reverse X axis
-title('Click on the bounds for the Shirley background');
+title({'Click twice to select the bounds for the Shirley background.', 'Press ESC twice to skip the Shirley background.'});
 
-[BoundX,BoundY] = ginput(2);
-LowShirleyBound = min(BoundX);
-HighShirleyBound = max(BoundX);
+[BoundX,BoundY,button] = ginput(2);
 close(BoundPlot)
 
-[ShirleyIndex,~] = find(BE(:,1) >= LowShirleyBound & BE(:,1) < );
+
 
 %% Determine Shirley background
-disp('Starting Shirley background fit...')
 
-ShirleyBE = BE(
-
-a0 = Intensity(BE==max(BE));   %Find initial background value at highest BE
-b0 = Intensity(BE==min(BE));   %Find initial background value at lowest BE
-
-Background = repmat(Intensity(BE==min(BE)),length(BE),1);  %Get initial background from constant value
-
-% Determine Shirley background by minimizing the peak areas.
-[BestFitValues,exitflag,output] = fminsearch(@ShirleyRG,[a0 b0]);
-
-BSintensity = Intensity - Background;   % Determine background corrected intensities
-
-disp('... fit complete!')
+if isempty(find(button == 27,1)) == 1
+    disp('Starting Shirley background fit...')
+    
+    LowShirleyBound = min(BoundX);
+    HighShirleyBound = max(BoundX);
+    [ShirleyIndex,~] = find(BE(:,1) >= LowShirleyBound & BE(:,1) < HighShirleyBound);
+    
+    BEShirley = BE(ShirleyIndex);
+    IntensityShirley = Intensity(ShirleyIndex);
+    
+    a0 = IntensityShirley(BEShirley==max(BEShirley));   %Find initial background value at highest BE
+    b0 = IntensityShirley(BEShirley==min(BEShirley));   %Find initial background value at lowest BE
+    
+    BackgroundShirley = repmat(IntensityShirley(BEShirley==min(BEShirley)),length(BEShirley),1);  %Get initial background from constant value
+    
+    % Determine Shirley background by minimizing the peak areas.
+    [BestFitValues,exitflag,output] = fminsearch(@ShirleyRG,[a0 b0]);
+    
+    Background = [repmat(BackgroundShirley(1),ShirleyIndex(1)-1,1); BackgroundShirley; repmat(BackgroundShirley(end),length(BE) - ShirleyIndex(end),1)];
+    
+    BSintensity = Intensity - Background;   % Determine background corrected intensities
+    
+    disp('... fit complete!')
+    
+else
+    disp('No Shirley background applied.')
+    Background = zeros(size(Intensity));
+    BSintensity = Intensity - Background;
+end
 
 %% Do the peak fitting
 
-% Flip data to use findpeaks which need increasing X values
-FlipBE = flip(BE);
-FlipBSInt = flip(BSintensity);
 
-% Find peaks to help with initial guesses and generate helpful plot
-[pks,locs,widths,proms] = findpeaks(FlipBSInt,FlipBE);
+FitPlot = figure;
+plot(BE, Intensity,BE,Background);                   % Generate helpful plot to set fitting bounds and initial guesses
+FitPlot.CurrentAxes.XDir = 'reverse';
+title('Click to select the bounds in which you want to fit peaks.')
 
-HelpPlot = figure;
-plot(FlipBE, FlipBSInt);                            % Generate helpful plot
-HelpPlot.CurrentAxes.XDir = 'reverse';              % Set to typical reverse X axis
+[XfitRange,YfitRange] = ginput(2);
+LowRange = min(XfitRange);
+HighRange = max(XfitRange);
 
-PeakLabelInt = maxk(proms,6);                       % Find 6 most prominent peaks
-for LabelInd = 1:1:6
-    PeakLabelIndex = find(proms == PeakLabelInt(LabelInd));
-    text(locs(PeakLabelIndex)+0.5,pks(PeakLabelIndex)+10,num2str(locs((PeakLabelIndex)))) % Add label
-end
-
-n = input('How many peaks do you want to fit? (max of 5) :');
-LowRange = input('What is the lower bound (in eV) to find peaks? :');
-HighRange = input('What is the upper bound (in eV) to find peaks? :');
-
-close(HelpPlot)
+title({'Now click on where you think the peaks should be centered.', 'Press ENTER to finish.'})
+[XPeakGuess,YPeakGuess] = ginput(5);
+n = length(XPeakGuess);
+close(FitPlot)
 
 disp('Starting peak fitting...')
 
@@ -100,17 +105,15 @@ switch n
         modelfun = @(b,x) b(1) + b(2) * x + b(3) * exp(-(x(:, 1) - b(4)).^2/b(5));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,1);
-        PeakIndex = find(proms == PeakInt);
-        InitialGuess(3) = proms(PeakIndex);
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
@@ -120,31 +123,29 @@ switch n
             + b(6) * exp(-(x(:, 1) - b(7)).^2/b(8));
         
         % Determine initial guess for Gaussian peak
-        PeakInt = maxk(proms,2);
-        PeakIndex = find(proms == PeakInt(1));      % For first Gaussian peak
-        
-        InitialGuess(3) = proms(PeakIndex);
+        % For first Gaussian peak        
+        InitialGuess(3) = YPeakGuess(1);
         LowerBound(3) = 0;
         UpperBound(3) = inf;
         
-        InitialGuess(4) = locs(PeakIndex);
+        InitialGuess(4) = XPeakGuess(1);
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = widths(PeakIndex) / 2.35;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0;
         UpperBound(5) = inf;
         
-        PeakIndex = find(proms == PeakInt(2));      % For second Gaussian peak
-        InitialGuess(6) = proms(PeakIndex);
+        % For second Gaussian peak
+        InitialGuess(6) = YPeakGuess(2);
         LowerBound(6) = 0;
         UpperBound(6) = inf;
         
-        InitialGuess(7) = locs(PeakIndex);
+        InitialGuess(7) = XPeakGuess(2);
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = widths(PeakIndex) / 2.35;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0;
         UpperBound(8) = inf;
         
