@@ -71,9 +71,6 @@ else
     BSintensity = Intensity - Background;
 end
 
-TempPlot = plot(BE, Background);
-waitfor(TempPlot)
-
 %% Do the peak fitting
 
 % Flip data to use findpeaks which need increasing X values
