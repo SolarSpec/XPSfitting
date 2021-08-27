@@ -1,5 +1,5 @@
 clear
-global BE Intensity Background
+global BEShirley IntensityShirley BackgroundShirley     %Globals needed to pass values to Shirley background function in this version.
 
 %% Select the data file to analyze
 [file,path] = uigetfile('.ascii');
@@ -29,12 +29,22 @@ BE = BE+BEshift;
 
 %% Determine bounds for Shirley background
 
-HelpPlot = figure;
-plot(FlipBE, FlipBSInt);                            % Generate helpful plot
+BoundPlot = figure;
+plot(BE, Intensity);   % Generate plot to set bounds on Shirley background fitting.
+BoundPlot.CurrentAxes.XDir = 'reverse';                                         % Set to typical reverse X axis
+title('Click on the bounds for the Shirley background');
 
+[BoundX,BoundY] = ginput(2);
+LowShirleyBound = min(BoundX);
+HighShirleyBound = max(BoundX);
+close(BoundPlot)
+
+[ShirleyIndex,~] = find(BE(:,1) >= LowShirleyBound & BE(:,1) < );
 
 %% Determine Shirley background
 disp('Starting Shirley background fit...')
+
+ShirleyBE = BE(
 
 a0 = Intensity(BE==max(BE));   %Find initial background value at highest BE
 b0 = Intensity(BE==min(BE));   %Find initial background value at lowest BE

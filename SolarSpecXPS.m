@@ -1,5 +1,5 @@
 clear
-global BE Intensity Background
+global BEShirley IntensityShirley BackgroundShirley     %Globals needed to pass values to Shirley background function in this version.
 
 %% Select the data file to analyze
 [file,path] = uigetfile('.ascii');
@@ -27,20 +27,52 @@ clear FullTable opts
 BEshift = input('What shift in eV should be applied to the binding energies? (answer 0 if you do not know): ');
 BE = BE+BEshift;
 
+%% Determine bounds for Shirley background
+
+BoundPlot = figure;
+plot(BE, Intensity);   % Generate plot to set bounds on Shirley background fitting.
+BoundPlot.CurrentAxes.XDir = 'reverse';                                         % Set to typical reverse X axis
+title({'Click twice to select the bounds for the Shirley background.', 'Press ESC twice to skip the Shirley background.'});
+
+[BoundX,BoundY,button] = ginput(2);
+close(BoundPlot)
+
+
+
 %% Determine Shirley background
-disp('Starting Shirley background fit...')
 
-a0 = Intensity(BE==max(BE));   %Find initial background value at highest BE
-b0 = Intensity(BE==min(BE));   %Find initial background value at lowest BE
+if isempty(find(button == 27,1)) == 1
+    disp('Starting Shirley background fit...')
+    
+    LowShirleyBound = min(BoundX);
+    HighShirleyBound = max(BoundX);
+    [ShirleyIndex,~] = find(BE(:,1) >= LowShirleyBound & BE(:,1) < HighShirleyBound);
+    
+    BEShirley = BE(ShirleyIndex);
+    IntensityShirley = Intensity(ShirleyIndex);
+    
+    a0 = IntensityShirley(BEShirley==max(BEShirley));   %Find initial background value at highest BE
+    b0 = IntensityShirley(BEShirley==min(BEShirley));   %Find initial background value at lowest BE
+    
+    BackgroundShirley = repmat(IntensityShirley(BEShirley==min(BEShirley)),length(BEShirley),1);  %Get initial background from constant value
+    
+    % Determine Shirley background by minimizing the peak areas.
+    [BestFitValues,exitflag,output] = fminsearch(@ShirleyRG,[a0 b0]);
+    
+    Background = [repmat(BackgroundShirley(1),ShirleyIndex(1)-1,1); BackgroundShirley; repmat(BackgroundShirley(end),length(BE) - ShirleyIndex(end),1)];
+    
+    BSintensity = Intensity - Background;   % Determine background corrected intensities
+    
+    disp('... fit complete!')
+    
+else
+    disp('No Shirley background applied.')
+    Background = zeros(size(Intensity));
+    BSintensity = Intensity - Background;
+end
 
-Background = repmat(Intensity(BE==min(BE)),length(BE),1);  %Get initial background from constant value
-
-% Determine Shirley background by minimizing the peak areas.
-[BestFitValues,exitflag,output] = fminsearch(@ShirleyRG,[a0 b0]);
-
-BSintensity = Intensity - Background;   % Determine background corrected intensities
-
-disp('... fit complete!')
+TempPlot = plot(BE, Background);
+waitfor(TempPlot)
 
 %% Do the peak fitting
 
