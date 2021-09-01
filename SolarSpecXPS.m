@@ -32,7 +32,7 @@ BE = BE+BEshift;
 BoundPlot = figure;
 plot(BE, Intensity);   % Generate plot to set bounds on Shirley background fitting.
 BoundPlot.CurrentAxes.XDir = 'reverse';                                         % Set to typical reverse X axis
-title({'Click twice to select the bounds for the Shirley background.', 'Press ESC twice to skip the Shirley background.'});
+title({'Click twice to select the X bounds for the Shirley background.', 'Press ESC twice to skip the Shirley background.'});
 
 [BoundX,BoundY,button] = ginput(2);
 close(BoundPlot)
@@ -77,13 +77,13 @@ end
 FitPlot = figure;
 plot(BE, Intensity,BE,Background);                   % Generate helpful plot to set fitting bounds and initial guesses
 FitPlot.CurrentAxes.XDir = 'reverse';
-title('Click to select the bounds in which you want to fit peaks.')
+title('Click to select the X bounds in which you want to fit peaks.')
 
 [XfitRange,YfitRange] = ginput(2);
 LowRange = min(XfitRange);
 HighRange = max(XfitRange);
 
-title({'Now click on where you think there should be peaks.', 'Press ENTER to finish.'})
+title({'Now click to select the initial X,Y coordinates of peaks.', 'Press ENTER to finish.'})
 [XPeakGuess,YPeakGuess] = ginput(5);
 n = length(XPeakGuess);
 close(FitPlot)
