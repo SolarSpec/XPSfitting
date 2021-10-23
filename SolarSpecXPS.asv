@@ -113,7 +113,7 @@ switch n
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = 1;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0.4;
         UpperBound(5) = inf;
         
@@ -132,7 +132,7 @@ switch n
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = 1;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0.4;
         UpperBound(5) = inf;
         
@@ -145,7 +145,7 @@ switch n
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = 1;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0.4;
         UpperBound(8) = inf;
         
@@ -165,7 +165,7 @@ switch n
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = 1;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0.4;
         UpperBound(5) = inf;
         
@@ -178,7 +178,7 @@ switch n
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = 1;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0.4;
         UpperBound(8) = inf;
         
@@ -191,7 +191,7 @@ switch n
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = 1;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0.4;
         UpperBound(11) = inf;
         
@@ -212,7 +212,7 @@ switch n
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = 1;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0.4;
         UpperBound(5) = inf;
         
@@ -225,7 +225,7 @@ switch n
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = 1;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0.4;
         UpperBound(8) = inf;
         
@@ -238,7 +238,7 @@ switch n
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = 1;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0.4;
         UpperBound(11) = inf;
         
@@ -251,7 +251,7 @@ switch n
         LowerBound(13) = LowRange;
         UpperBound(13) = HighRange;
         
-        InitialGuess(14) = 1;
+        InitialGuess(14) = 2;
         LowerBound(14) = 0.4;
         UpperBound(14) = inf;
         
@@ -274,7 +274,7 @@ switch n
         LowerBound(4) = LowRange;
         UpperBound(4) = HighRange;
         
-        InitialGuess(5) = 1;
+        InitialGuess(5) = 2;
         LowerBound(5) = 0.4;
         UpperBound(5) = inf;
         
@@ -287,7 +287,7 @@ switch n
         LowerBound(7) = LowRange;
         UpperBound(7) = HighRange;
         
-        InitialGuess(8) = 1;
+        InitialGuess(8) = 2;
         LowerBound(8) = 0.4;
         UpperBound(8) = inf;
         
@@ -300,7 +300,7 @@ switch n
         LowerBound(10) = LowRange;
         UpperBound(10) = HighRange;
         
-        InitialGuess(11) = 1;
+        InitialGuess(11) = 2;
         LowerBound(11) = 0.4;
         UpperBound(11) = inf;
         
@@ -313,7 +313,7 @@ switch n
         LowerBound(13) = LowRange;
         UpperBound(13) = HighRange;
         
-        InitialGuess(14) = 1;
+        InitialGuess(14) = 2;
         LowerBound(14) = 0.4;
         UpperBound(14) = inf;
         
@@ -326,7 +326,7 @@ switch n
         LowerBound(16) = LowRange;
         UpperBound(16) = HighRange;
         
-        InitialGuess(17) = 1;
+        InitialGuess(17) = 2;
         LowerBound(17) = 0.4;
         UpperBound(17) = inf;
 end
