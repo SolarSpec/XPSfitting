@@ -167,7 +167,7 @@ Project Link: [https://github.com/SolarSpec/XPSfitting](https://github.com/Solar
 ## Acknowledgments
 
 * [Group Leader - Dr. Robert Godin](https://solarspec.ok.ubc.ca/people/)
-* [Group Alumni - James Kivai](https://solarspec.ok.ubc.ca/people/)
+* [Group Alumni - Jasper Pankratz](https://solarspec.ok.ubc.ca/people/)
 * [The Entire SolarSpec Team](https://solarspec.ok.ubc.ca/people/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
