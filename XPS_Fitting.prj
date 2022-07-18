@@ -1,0 +1,112 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="2860263106" file="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
+    <param.appname>XPS_Fitting</param.appname>
+    <param.authnamewatermark>Robert Godin,Haris Vidimlic</param.authnamewatermark>
+    <param.email />
+    <param.company>SolarSpec</param.company>
+    <param.icon>${PROJECT_ROOT}\XPS_Fitting_resources\icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\XPS_Fitting_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\XPS_Fitting_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\XPS_Fitting_resources\icon_16.png</file>
+    </param.icons>
+    <param.summary>Fitting app to analyze XPS data.</param.summary>
+    <param.description />
+    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp2dd0ded7_b40d_4796_bbe9_06057d589d07.png</param.screenshot>
+    <param.version>1.0</param.version>
+    <param.products.name>
+      <item>MATLAB</item>
+      <item>Image Processing Toolbox</item>
+      <item>Signal Processing Toolbox</item>
+    </param.products.name>
+    <param.products.id>
+      <item>1</item>
+      <item>17</item>
+      <item>8</item>
+    </param.products.id>
+    <param.products.version>
+      <item>9.12</item>
+      <item>11.5</item>
+      <item>9.0</item>
+    </param.products.version>
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>6d5b4944-6cb6-49fe-9d0d-9da02d4ac91c</param.guid>
+    <unset>
+      <param.email />
+      <param.description />
+      <param.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\SolarSpecXPSapp.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\images\logo.png</file>
+      <file>${PROJECT_ROOT}\SinglePeakFunc.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="C:\Users\hvidi\Desktop\Platform-Repo" name="XPSfitting" optional="false">C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2022a</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
