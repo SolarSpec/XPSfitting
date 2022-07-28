@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="149708110" file="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2677205728" file="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
     <param.appname>XPS_Fitting</param.appname>
     <param.authnamewatermark>Robert Godin, Haris Vidimlic</param.authnamewatermark>
     <param.email />
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Fitting app to analyze XPS data.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp8ac73c50_78e2_4f28_8f9a_39db0417f62b.png</param.screenshot>
+    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tpbda636c6_97a6_41ad_8343_c74ce1923bbe.png</param.screenshot>
     <param.version>1.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
