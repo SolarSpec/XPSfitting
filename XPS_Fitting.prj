@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2677205728" file="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="354393624" file="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
     <param.appname>XPS_Fitting</param.appname>
     <param.authnamewatermark>Robert Godin, Haris Vidimlic</param.authnamewatermark>
     <param.email />
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Fitting app to analyze XPS data.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tpbda636c6_97a6_41ad_8343_c74ce1923bbe.png</param.screenshot>
-    <param.version>1.5</param.version>
+    <param.screenshot>C:\Users\rgodin01\AppData\Local\Temp\tp3d538c32_2790_46c3_acdc_8a0dcf9f8ef3.png</param.screenshot>
+    <param.version>1.6</param.version>
     <param.products.name>
       <item>MATLAB</item>
       <item>Image Processing Toolbox</item>
@@ -25,9 +25,9 @@
       <item>8</item>
     </param.products.id>
     <param.products.version>
-      <item>9.12</item>
-      <item>11.5</item>
-      <item>9.0</item>
+      <item>9.13</item>
+      <item>11.6</item>
+      <item>9.1</item>
     </param.products.version>
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
@@ -47,49 +47,12 @@
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\hvidi\Desktop\Platform-Repo" name="XPSfitting" optional="false">C:\Users\hvidi\Desktop\Platform-Repo\XPSfitting</file>
+      <file location="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo" name="XPSfitting" optional="false">C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2022a</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="gpucoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="neuralnetwork" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <gpucoder>
-          <enabled>true</enabled>
-        </gpucoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <neuralnetwork>
-          <enabled>true</enabled>
-        </neuralnetwork>
-      </toolbox>
+      <root>C:\Program Files\MATLAB\R2022b</root>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>
