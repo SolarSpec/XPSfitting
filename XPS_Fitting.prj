@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="354393624" file="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting\XPS_Fitting.prj" location="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1350540556" file="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting\XPS_Fitting.prj" location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
     <param.appname>XPS_Fitting</param.appname>
     <param.authnamewatermark>Robert Godin, Haris Vidimlic</param.authnamewatermark>
     <param.email />
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Fitting app to analyze XPS data.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\rgodin01\AppData\Local\Temp\tp3d538c32_2790_46c3_acdc_8a0dcf9f8ef3.png</param.screenshot>
+    <param.screenshot>C:\Users\mirac\AppData\Local\Temp\tp13c91745_1cfa_4dc2_88a6_206e0f10fcaf.png</param.screenshot>
     <param.version>1.6</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -47,7 +47,7 @@
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo" name="XPSfitting" optional="false">C:\Users\rgodin01\OneDrive - UBC\RG\UBCO\Research\Git\Platform-Repo\XPSfitting</file>
+      <file location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders" name="XPSfitting" optional="false">C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting</file>
     </build-deliverables>
     <workflow />
     <matlab>
