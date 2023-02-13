@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2563887197" file="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting\XPS_Fitting.prj" location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="595241178" file="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting\XPS_Fitting.prj" location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\XPSfitting" name="XPS_Fitting" target="target.mlapps" target-name="Package App">
     <param.appname>XPS_Fitting</param.appname>
     <param.authnamewatermark>Robert Godin, Haris Vidimlic</param.authnamewatermark>
     <param.email />
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Fitting app to analyze XPS data.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\mirac\AppData\Local\Temp\tpdc38274d_2b4b_4ce2_acc5_977e38db9f08.png</param.screenshot>
+    <param.screenshot>C:\Users\mirac\AppData\Local\Temp\tp459023ab_33fe_4959_99ba_a68113b54ddc.png</param.screenshot>
     <param.version>1.6</param.version>
     <param.products.name>
       <item>MATLAB</item>
